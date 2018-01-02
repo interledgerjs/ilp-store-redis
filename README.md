@@ -1,7 +1,7 @@
 # ILP Store Redis
 > ILP store for the connector, using redis as a backend
 
-```
+```js
 const Store = require('ilp-store-redis')
 const redisStore = new Store({
   path: 'test.example', // used as prefix for keys and publish
