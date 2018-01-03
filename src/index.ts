@@ -1,17 +1,17 @@
 const Redis = require('ioredis')
 
 export interface StoreOptions {
-  path: string
+  prefix?: string
   [propName: string]: any
 }
 
 class RedisStore {
-  _path: string
+  _prefix: string
   _redis: any
 
   constructor (opts: StoreOptions) {
-    this._path = 'ilp:' + (opts.path || '')
-    this._redis = new Redis(Object.assign({ keyPrefix: this._path }, opts))
+    this._prefix = 'ilp:' + (opts.prefix || '') + ':'
+    this._redis = new Redis(Object.assign({ keyPrefix: this._prefix }, opts))
   }
 
   async get (key: string): Promise<string | undefined> {
@@ -21,14 +21,14 @@ class RedisStore {
   async put (key: string, value: string): Promise<undefined> {
     return this._redis.pipeline()
       .set(key, String(value))
-      .publish(this._path + ':' + key, value)
+      .publish(this._prefix + key, value)
       .exec()
   }
 
   async del (key: string): Promise<undefined> {
     return this._redis.pipeline()
       .del(key)
-      .publish(this._path + ':' + key, '')
+      .publish(this._prefix + ':' + key, '')
       .exec()
   }
 }
