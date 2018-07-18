@@ -11,6 +11,7 @@ class RedisStore {
 
   constructor (opts: StoreOptions) {
     this._prefix = 'ilp:' + (opts.prefix || '') + ':'
+    delete(opts.prefix)
     this._redis = new Redis(Object.assign({ keyPrefix: this._prefix }, opts))
   }
 
