@@ -11,7 +11,9 @@ class RedisStore {
 
   constructor (opts: StoreOptions) {
     this._prefix = 'ilp:' + (opts.prefix || '') + ':'
-    this._redis = new Redis(Object.assign({ keyPrefix: this._prefix }, opts))
+    const redisOptions = Object.assign({ keyPrefix: this._prefix }, opts)
+    delete(redisOptions.prefix)
+    this._redis = new Redis(redisOptions)
   }
 
   async get (key: string): Promise<string | undefined> {
