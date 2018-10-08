@@ -1,4 +1,4 @@
-const Redis = require('ioredis')
+import * as IoRedis from 'ioredis'
 
 export interface StoreOptions {
   prefix?: string
@@ -7,17 +7,17 @@ export interface StoreOptions {
 
 class RedisStore {
   _prefix: string
-  _redis: any
+  _redis: IoRedis.Redis
 
   constructor (opts: StoreOptions) {
     this._prefix = 'ilp:' + (opts.prefix || '') + ':'
     const redisOptions = Object.assign({ keyPrefix: this._prefix }, opts)
     delete(redisOptions.prefix)
-    this._redis = new Redis(redisOptions)
+    this._redis = new IoRedis(redisOptions)
   }
 
   async get (key: string): Promise<string | undefined> {
-    return this._redis.get(key) || undefined
+    return (await this._redis.get(key)) || undefined
   }
 
   async put (key: string, value: string): Promise<undefined> {
