@@ -10,32 +10,23 @@
     "src/**/*.js.map"
   ],
   "scripts": {
-    "build": "tsc",
-    "pretest": "tsc",
-    "test": "nyc mocha",
-    "watch": "mocha-typescript-watch",
-    "prepare": "tsc"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/interledgerjs/ilp-protocol-ildcp.git"
+    "url": "git+https://github.com/interledgerjs/ilp-store-redis.git"
   },
   "keywords": [
     "ilp",
-    "configuration",
-    "dhcp",
-    "autoconfig",
-    "detect",
-    "address",
-    "load",
-    "config"
+    "ilp-connector",
+    "redis"
   ],
   "author": "Interledger Team <info@interledger.org>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/interledgerjs/ilp-protocol-ildcp/issues"
+    "url": "https://github.com/interledgerjs/ilp-store-redis/issues"
   },
-  "homepage": "https://github.com/interledgerjs/ilp-protocol-ildcp#readme",
+  "homepage": "https://github.com/interledgerjs/ilp-store-redis#readme",
   "dependencies": {
     "ioredis": "^3.2.2"
   },
@@ -57,6 +48,9 @@
     "tslint": "^5.8.0",
     "tslint-config-standard": "^7.0.0",
     "typescript": "^2.6.2"
+  },
+  "peerDependencies": {
+    "ilp-connector": "^22.0.0"
   },
   "nyc": {
     "check-coverage": true,
