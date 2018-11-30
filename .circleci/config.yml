@@ -7,19 +7,12 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:8.11.3
+    - image: circleci/node:8
 
 jobs:
   build:
     <<: *defaults
     steps:
-      - run:
-          # By default node is installed as root and we are running as circleci
-          # Using sudo causes wierd issues so we just switch to installing globals in our home dir
-          name: Setup NPM to make global installs to home directory
-          command: |
-            echo "export PATH=$HOME/bin:$PATH" >> $BASH_ENV
-            npm set prefix=$HOME
       - checkout
       - restore_cache:
           keys:
@@ -31,8 +24,8 @@ jobs:
           name: Install
           command: npm install
       - run:
-          name: Test
-          command: npm run pretest
+          name: Build
+          command: npm run build
       - save_cache:
           paths:
             - node_modules
@@ -62,7 +55,7 @@ workflows:
               only: /^v.*/
       - deploy:
           requires:
-            - test
+            - build
           filters:
             tags:
               only: /^v.*/
