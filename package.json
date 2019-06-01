@@ -1,6 +1,6 @@
 {
   "name": "ilp-store-redis",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ILP store for redis",
   "main": "src/index.js",
   "types": "src/index.d.ts",
