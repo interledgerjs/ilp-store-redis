@@ -17,7 +17,8 @@ class RedisStore {
   }
 
   async get (key: string): Promise<string | undefined> {
-    return (await this._redis.get(key)) || undefined
+    const value = await this._redis.get(key)
+    return (value === null) ? undefined : value
   }
 
   async put (key: string, value: string): Promise<undefined> {
